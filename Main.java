@@ -33,7 +33,7 @@ public class Main {
                 invalid = false;
                 double damage = ((double) Math.round((generator.nextDouble() * 2 + 1) * 10)) / 10;
                 playerHealth -= damage;
-                    TimeUnit.MILLISECONDS.sleep(100);
+                    TimeUnit.SECONDS.sleep(1);
                 System.out.print("You took " + damage + " damage.\n [");
                 int roundedHealth = (int) Math.round(playerHealth);
                 for (int i = 0; i < 10; i++) {
@@ -43,13 +43,34 @@ public class Main {
                         System.out.print(" ");
                     }
                 }
-                System.out.print("] " + playerHealth + "/10");
-
-            } else if (Pinput.nextLine().toLowerCase().contains("n")) {
-                System.out.println("");
-                invalid = false;
+                System.out.println("] " + playerHealth + "/10 health");
+TimeUnit.SECONDS.sleep(1);
+System.out.println("Do you attack the cub? y/n");
+                invalid = true;
+                while (invalid) {
+                    if (Pinput.nextLine().toLowerCase().contains("y")) {
+                        System.out.println("The mother hears the cub's cry and strikes you down in one blow.");
+                        invalid = false;
+                        damage = playerHealth;
+                        playerHealth =0;
+                        TimeUnit.SECONDS.sleep(1);
+                        System.out.print("You took " + damage + " damage.\n [          ");
+                        System.out.println("] " + playerHealth + "/10 health");
+                        TimeUnit.SECONDS.sleep(1);
+                        System.out.println("You were killed by the bear cub's mother. Although you died, the locals honored your bravery. (good ending)");
+                    } else {
+                        System.out.println("You run away like a coward.");
+                        System.out.println("You took " + playerHealth+" emotional damage.\n [          ] 0/10 health");
+                        invalid = false;
+                        System.out.println("You died of embarrassment. (bad ending)");
+                    }
+                }
             } else {
-                System.out.println("That is not an option");
+                        System.out.println("You run away like a coward.");
+                TimeUnit.SECONDS.sleep(1);
+                System.out.println("You took " + playerHealth+" damage.\n [          ] 0/10 health");
+                System.out.println("The locals see you as a coward and kill you for your lack of bravery. (bad ending)");
+                invalid = false;
             }
         }
         invalid = true;
