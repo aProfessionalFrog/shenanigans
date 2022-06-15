@@ -1,0 +1,24 @@
+import java.util.Random;
+public class Main {
+
+    public static void main(String[] args) {
+	while(true){
+        Random generator = new Random();
+        System.out.println((generator.nextInt(999999999) * generator.nextInt(999999999)) ^ (10 * generator.nextInt(999999999)));
+    System.out.println(Math.sqrt(generator.nextInt(999999999)));
+    System.out.println(Math.sqrt(generator.nextInt(999999999)));
+    System.out.println(Math.sqrt(generator.nextInt(999999999)));
+    System.out.println(Math.sqrt(generator.nextInt(999999999)));
+    System.out.println(Math.sqrt(generator.nextInt(999999999)));
+    System.out.println(Math.sqrt(generator.nextInt(999999999)));
+    System.out.println(Math.sqrt(generator.nextInt(999999999)));
+    System.out.println(Math.sqrt(generator.nextInt(999999999)));
+    System.out.println(Math.sqrt(generator.nextInt(999999999)));
+    System.out.println(Math.sqrt(generator.nextInt(999999999)));
+    System.out.println(Math.sqrt(generator.nextInt(999999999)));
+    System.out.println(Math.sqrt(generator.nextInt(999999999)));
+    System.out.println(Math.sqrt(generator.nextInt(999999999)));
+    System.out.println(Math.sqrt(generator.nextInt(999999999)));
+    }
+    }
+}
