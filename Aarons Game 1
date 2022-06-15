@@ -1,21 +1,79 @@
-package com.trashthing;
+package project;
 
-import java.util.Scanner;
-import java.util.Random;
+import processing.core.PApplet;
 
+public class project extends PApplet {
 
-public class Main {
-    //i hate comments
+    float playerX = 40;
+    float playerY = 40;
+    boolean left, right, up, down;
+
     public static void main(String[] args) {
-        Random generator = new Random();
-        Scanner Pinput;
-        String PInput;
-        int moneyzzzz;
-        Pinput = new Scanner(System.in);
-        PInput = Pinput.nextLine();
-        if (PInput.contains("money")) {
-            moneyzzzz = generator.nextInt(500000);
-            System.out.println("You stumble upon the thieves secret cache. You find " + moneyzzzz + " dollars!");
+        PApplet.main("project.project");
+    }
+
+    public void settings() {
+        size(400, 400);
+    }
+
+    public void setup() {
+
+    }
+
+    public void draw() {
+        background(250);
+        noStroke();
+        drawPlayer();
+        }
+    public void drawPlayer() {
+        if (up) {
+            playerY -= 5;
+        }
+        if (left) {
+            playerX -= 5;
+        }
+        if (right) {
+            playerX += 5;
+        }
+        if (down) {
+            playerY += 5;
+        }
+
+        fill(0, 230, 172);
+        rectMode(CENTER);
+        playerX = constrain(playerX, 0, width);
+        playerY = constrain(playerY, 0, height);
+        rect(playerX, playerY, 30, 30);
+    }
+
+
+    public void keyPressed() {
+        if (key == 'w') {
+            up = true;
+        }
+        if (key == 'a') {
+            left = true;
+        }
+        if (key == 's') {
+            down = true;
+        }
+        if (key == 'd') {
+            right = true;
+        }
+    }
+
+    public void keyReleased() {
+        if (key == 'w') {
+            up = false;
+        }
+        if (key == 'a') {
+            left = false;
+        }
+        if (key == 's') {
+            down = false;
+        }
+        if (key == 'd') {
+            right = false;
         }
     }
 }
