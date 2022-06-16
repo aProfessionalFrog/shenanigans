@@ -3,18 +3,20 @@ import processing.core.PApplet;
 import processing.core.PSurface;
 
 import static java.lang.Float.valueOf;
-
+//https://www.msn.com/en-us/news/us/an-elementary-school-thought-it-was-serving-milk-to-students-turns-out-it-was-floor-sealant/ar-AAYxAs1?ocid=winp1taskbar&cvid=57c2fe01f84d444481a94afae70264e6
 public class Main extends PApplet {
 
     int frameX;
     int frameY;
-    int maxX = 400;
+    int LframeY;
+    int maxX = 600;
     int maxY = 400;
     double playerX = maxX / 2;
+    double LplayerY;
     double playerY = maxY / 2;
-    boolean left, right, up, down, draggable = false, firstFrame = true, wCanBeDown = true, allowDown = true;
+    boolean left, right, up, down, draggable = false, firstFrame = true, wCanBeDown = true,firstHit=true;
     double playerYVelocity;
-    double frameYVelocity;
+    int gridHeight=30;
 
     public static void main(String[] args) {
         PApplet.main("com.company.Main");
@@ -47,7 +49,7 @@ public class Main extends PApplet {
                 surface.setLocation(frameX, frameY);
             }
         }
-        text(String.valueOf(Math.round(valueOf(frameRate))),7f , 11f);
+        text(String.valueOf((float)Math.round(valueOf(frameRate)*10)/10),4f , 14f);
     }
 
     static final javax.swing.JFrame getJFrame(final PSurface surface) {
@@ -56,22 +58,33 @@ public class Main extends PApplet {
 
 
     public void drawPlayer() {
-        playerYVelocity -= 0.1;
-        frameYVelocity += 0.1;//gravity up
+        playerYVelocity -= 0.4598364923;
+        //window movement
+        if(LframeY==frameY){
+            frameX = getJFrame(getSurface()).getX();
+            frameY = getJFrame(getSurface()).getY();
+        }
 
-        if (playerY >= maxY - 1) {//fix
+        if(playerX>= maxX-0.001) {
+        frameX+=maxX-5;
+        playerX =1;
+        }
+        if(playerX<= 0.001) {
+            frameX-=maxX-5;
+            playerX =maxX;
+        }
+        if (playerY >= maxY - 0.001) {
             playerYVelocity = 0;
-            frameYVelocity = 0;
         }
         if (playerY <= 0.001) {
-            playerYVelocity = 0;
-            frameYVelocity=0;
+            playerYVelocity = -0.1;
             playerY += 1;
-            frameY -= 1;
         }
-
+        if (playerY==LplayerY){
+            playerYVelocity=0;
+        }
+        LplayerY=playerY;
         playerY -= playerYVelocity;
-        frameY += playerYVelocity;
         if (left) {
                 playerX -= 5;
             if (playerX >= 0.001 && playerX <= maxX - 0.001) {
@@ -87,28 +100,24 @@ public class Main extends PApplet {
         if (down) {
             if (playerY >= 0.001 && playerY <= maxY - 0.001) {
                 playerY += 5;
-                frameY -= 5;
             }
         }
+
+        LframeY=frameY;
 
         fill(0, 230, 172);
         rectMode(CENTER);
         playerX = constrain((float) playerX, 0, width);
-        playerY = constrain((float) playerY, 0, height);
-        rect((float) playerX, (float) playerY, 30, 30);
+        playerY = constrain((float) playerY, 0, height-gridHeight);
+        rect((float) playerX, (float) playerY, (gridHeight/3)*2, (gridHeight/3)*2);
     }
 
     public void keyPressed() {
         if (key == 'w' || key == 'W' || key == 32) {
-            if (wCanBeDown) {
-                wCanBeDown = false;
-                allowDown = false;
-                playerY -= 1.2;
-                frameY += 1.2;
-                playerYVelocity += 10;
-                frameYVelocity -= 10;
-                up = true;
-
+                if (playerY==LplayerY) {
+                    playerY -= 1.2;
+                    playerYVelocity += 11;
+                    //up = true;
             }
         }
         if (key == 'a' || key == 'A') {
@@ -122,14 +131,13 @@ public class Main extends PApplet {
         }
         if (key == 'p' || key == 'P') {
             draggable = !draggable;
+            firstHit=true;
         }
     }
 
     public void keyReleased() {
         if (key == 'w' || key == 'W' || key == 32) {
-            wCanBeDown = true;
-            allowDown = true;
-            up = false;
+            //up = false;
         }
         if (key == 'a' || key == 'A') {
             left = false;
