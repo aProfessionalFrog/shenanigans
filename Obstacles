@@ -1,0 +1,38 @@
+package project;
+import processing.core.PApplet;
+
+public class Obstacle {
+
+    public int xLoc;
+    public int yLoc;
+    public int xsize;
+    public int ysize;
+    public int speed;
+//shrek
+    public Obstacle(int x, int y, String type, int s) {
+        xLoc = x; //should be max window bounds
+        yLoc = y;
+        speed = s;
+        if (type.equals("rectangle")){
+            xsize = 10;
+            ysize = 20;
+        }
+    }
+
+    public void update( ){
+
+        xLoc -= speed;
+        if (xLoc == 0) {
+            xLoc = 500;
+        }
+    }
+
+
+    public int getxLoc(){
+        return xLoc;
+    }
+
+    public int getyLoc(){
+        return yLoc;
+    }
+}
